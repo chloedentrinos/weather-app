@@ -80,3 +80,14 @@ h3 {
 .cloud-sun {
   color: rgb(232 191 16 / 86%);
 }
+
+.openSourceCode {
+  font-size: 13px;
+  font-weight: 400;
+  display: block;
+  margin-top: 15px;
+}
+
+.openSourceCodeLink {
+  text-decoration: none;
+}
