@@ -1,0 +1,82 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Domine", serif;
+}
+
+h2 {
+  font-size: 60px;
+  display: inline;
+}
+
+h3 {
+  margin: 0 auto 15px;
+}
+
+.container {
+  margin: 50px auto;
+  max-width: 645px;
+}
+
+.card {
+  border: 4px solid rgba(0, 0, 0, 0.125);
+  background: #98ccf870;
+}
+
+.showers {
+  font-size: 18px;
+}
+
+.iconCurrent {
+  font-size: 100px;
+  text-align: right;
+  padding-right: 2px;
+  position: relative;
+  bottom: 27px;
+}
+
+.currentTemperatureAll {
+  padding-left: 2px;
+  padding-right: 0px;
+  width: 30%;
+}
+
+.currentTemperatureUnit,
+.currentTemperatureUnitSeparator {
+  text-decoration: none;
+  color: black;
+  position: relative;
+  bottom: 30px;
+}
+
+.currentTemperatureUnit:hover {
+  cursor: pointer;
+}
+
+.currentWeatherExtras {
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 20%;
+}
+
+.day,
+.iconFuture {
+  text-align: center;
+}
+
+.iconFuture {
+  font-size: 60px;
+}
+
+.cloud-rain {
+  color: rgb(172, 172, 172);
+}
+
+.cloud-sun {
+  color: rgb(232 191 16 / 86%);
+}
