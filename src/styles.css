@@ -28,8 +28,16 @@ h3 {
   background: #98ccf870;
 }
 
-.showers {
-  font-size: 18px;
+.weatherDescription {
+  position: relative;
+  top: 15px;
+  text-align: center;
+  line-height: 37px;
+  font-size: 31px;
+}
+
+.weatherDescription:first-letter {
+  text-transform: capitalize;
 }
 
 .iconCurrent {

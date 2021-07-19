@@ -24,7 +24,7 @@ function showTime(date) {
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-description").innerHTML =
-    response.data.weather[0].main;
+    response.data.weather[0].description;
   document.querySelector("#current-temperature").innerHTML = Math.round(
     response.data.main.temp
   );
