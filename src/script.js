@@ -25,6 +25,15 @@ function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
+  document
+    .querySelector("#iconCurrent")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#iconCurrent")
+    .setAttribute("alt", response.data.weather[0].description);
   document.querySelector("#current-temperature").innerHTML = Math.round(
     response.data.main.temp
   );
