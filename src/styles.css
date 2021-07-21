@@ -20,7 +20,7 @@ h3 {
 
 .container {
   margin: 50px auto;
-  max-width: 645px;
+  max-width: 549px;
 }
 
 .card {
@@ -28,44 +28,37 @@ h3 {
   background: #98ccf870;
 }
 
+.lastUpdated {
+  font-size: 20px;
+}
+
 .weatherDescription {
   position: relative;
-  top: 15px;
-  text-align: center;
   line-height: 37px;
-  font-size: 31px;
+  font-size: 25px;
+  padding: 0;
+  margin: 0;
 }
 
 .weatherDescription:first-letter {
   text-transform: capitalize;
 }
 
-.iconCurrent {
-  font-size: 100px;
-  text-align: right;
-  padding-right: 2px;
-  position: relative;
-  bottom: 27px;
+.currentWeather {
+  height: 122px;
+  margin-top: 0px;
 }
 
-.currentTemperatureAll {
-  padding-left: 2px;
-  padding-right: 0px;
-  width: 30%;
+.iconCurrent {
+  text-align: right;
+  position: relative;
+  bottom: 15px;
+  padding-right: 12px;
 }
 
 .currentTemperatureUnits {
   position: relative;
   bottom: 30px;
-}
-
-.currentTemperatureUnits .nonActive {
-  text-decoration: none;
-  color: black;
-}
-
-.currentTemperatureUnits .nonActive:hover {
-  color: blue;
 }
 
 .currentTemperatureUnits .active {
@@ -79,10 +72,20 @@ h3 {
   color: black;
 }
 
+.currentTemperatureUnits .nonActive {
+  text-decoration: none;
+  color: black;
+}
+
+.currentTemperatureUnits .nonActive:hover {
+  color: blue;
+}
+
 .currentWeatherExtras {
-  padding-left: 0px;
+  padding-left: 24px;
   padding-right: 0px;
-  width: 20%;
+  position: relative;
+  top: 9px;
 }
 
 .day,

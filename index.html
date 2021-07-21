@@ -56,16 +56,15 @@
             </div>
           </form>
           <h1 id="city"></h1>
-          <h4>Last updated: <span id="current-date"></span></h4>
-          <br />
-          <div class="row g-3">
-            <div class="col-3">
-              <h3 class="weatherDescription" id="weather-description"></h3>
+          <h4 class="lastUpdated">
+            Last updated: <span id="current-date"></span>
+          </h4>
+          <h3 class="weatherDescription" id="weather-description"></h3>
+          <div class="row g-2 currentWeather">
+            <div class="col-4 iconCurrent">
+              <img src="" alt="" id="iconCurrent" />
             </div>
-            <div class="col-3">
-              <img src="" alt="" class="iconCurrent" id="iconCurrent" />
-            </div>
-            <div class="col-4 currentTemperatureAll">
+            <div class="col-auto currentTemperatureAll">
               <h2 id="current-temperature"></h2>
               <stan class="currentTemperatureUnits">
                 <a href="#" class="active" id="metric-link">°C </a>
@@ -77,14 +76,12 @@
                 <stan id="minimum-temperature-today"></stan>°C
               </div>
             </div>
-            <div class="col-2 currentWeatherExtras">
-              <br />
+            <div class="col-4 currentWeatherExtras">
               <p>Humidity: <stan id="humidity"></stan>%</p>
               <p>Wind: <stan id="wind"></stan> km/h</p>
             </div>
           </div>
-          <br />
-          <div class="row g-5">
+          <div class="row g-4">
             <div class="col-auto">
               <div class="day">Saturday</div>
               <i class="fas fa-cloud-rain cloud-rain iconFuture"></i>

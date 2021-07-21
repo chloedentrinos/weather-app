@@ -79,16 +79,19 @@ function showImperialTemperature(event) {
   document.querySelector("#current-temperature").innerHTML =
     Math.round((metricTemperature * 9) / 5) + 32;
   metricLink.classList.remove("active");
-  imperialLink.classList.add("active");
   metricLink.classList.add("nonActive");
+  imperialLink.classList.remove("nonActive");
+  imperialLink.classList.add("active");
 }
 
 function showMetricTemperature(event) {
   event.preventDefault();
   document.querySelector("#current-temperature").innerHTML =
     Math.round(metricTemperature);
-  imperialLink.classList.remove("active");
+  metricLink.classList.remove("nonActive");
   metricLink.classList.add("active");
+  imperialLink.classList.remove("active");
+  imperialLink.classList.add("nonActive");
 }
 
 let metricTemperature = null;
