@@ -67,20 +67,10 @@
             </div>
             <div class="col-4 currentTemperatureAll">
               <h2 id="current-temperature"></h2>
-              <stan>
-                <a
-                  href="#"
-                  class="currentTemperatureUnit"
-                  id="current-temperature-unit-metric"
-                  ><strong>°C</strong>
-                </a>
-                <stan class="currentTemperatureUnitSeparator"> | </stan>
-                <a
-                  href="#"
-                  class="currentTemperatureUnit"
-                  id="current-temperature-unit-imperial"
-                  >°F</a
-                >
+              <stan class="currentTemperatureUnits">
+                <a href="#" class="active" id="metric-link">°C </a>
+                <stan class="separator"> | </stan>
+                <a href="#" class="nonActive" id="imperial-link">°F</a>
               </stan>
               <div class="temperature">
                 <stan id="maximum-temperature-today"></stan>°C /

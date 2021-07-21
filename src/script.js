@@ -34,12 +34,9 @@ function displayWeather(response) {
   document
     .querySelector("#iconCurrent")
     .setAttribute("alt", response.data.weather[0].description);
-  document.querySelector("#current-temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#current-temperature-unit-metric").innerHTML =
-    "<strong>°C</strong>";
-  document.querySelector("#current-temperature-unit-imperial").innerHTML = "°F";
+  metricTemperature = response.data.main.temp;
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round(metricTemperature);
   document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
     response.data.main.temp_max
   );
@@ -77,20 +74,24 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
-function showImperial(event) {
+function showImperialTemperature(event) {
   event.preventDefault();
-  document.querySelector("#current-temperature").innerHTML = 55;
-  document.querySelector("#current-temperature-unit-imperial").innerHTML =
-    "<strong>°F</strong>";
-  document.querySelector("#current-temperature-unit-metric").innerHTML = "°C";
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round((metricTemperature * 9) / 5) + 32;
+  metricLink.classList.remove("active");
+  imperialLink.classList.add("active");
+  metricLink.classList.add("nonActive");
 }
 
-function showMetric(event) {
+function showMetricTemperature(event) {
   event.preventDefault();
-  document.querySelector("#current-temperature-unit-metric").innerHTML =
-    "<strong>°C</strong>";
-  document.querySelector("#current-temperature-unit-imperial").innerHTML = "°F";
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round(metricTemperature);
+  imperialLink.classList.remove("active");
+  metricLink.classList.add("active");
 }
+
+let metricTemperature = null;
 
 let currentDate = document.querySelector("#current-date");
 let currentTime = new Date();
@@ -102,14 +103,10 @@ searchForm.addEventListener("submit", handleSubmit);
 let currentLocationButton = document.querySelector("#current-location-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);
 
-let currentTemperatureUnitImperial = document.querySelector(
-  "#current-temperature-unit-imperial"
-);
-currentTemperatureUnitImperial.addEventListener("click", showImperial);
+let imperialLink = document.querySelector("#imperial-link");
+imperialLink.addEventListener("click", showImperialTemperature);
 
-let currentTemperatureUnitMetric = document.querySelector(
-  "#current-temperature-unit-metric"
-);
-currentTemperatureUnitMetric.addEventListener("click", showMetric);
+let metricLink = document.querySelector("#metric-link");
+metricLink.addEventListener("click", showMetricTemperature);
 
-searchCity("Penrith");
+searchCity("Sydney");

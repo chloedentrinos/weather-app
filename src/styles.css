@@ -54,16 +54,29 @@ h3 {
   width: 30%;
 }
 
-.currentTemperatureUnit,
-.currentTemperatureUnitSeparator {
-  text-decoration: none;
-  color: black;
+.currentTemperatureUnits {
   position: relative;
   bottom: 30px;
 }
 
-.currentTemperatureUnit:hover {
-  cursor: pointer;
+.currentTemperatureUnits .nonActive {
+  text-decoration: none;
+  color: black;
+}
+
+.currentTemperatureUnits .nonActive:hover {
+  color: blue;
+}
+
+.currentTemperatureUnits .active {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+
+.currentTemperatureUnits .active:hover {
+  cursor: default;
+  color: black;
 }
 
 .currentWeatherExtras {
