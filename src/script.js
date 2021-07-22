@@ -21,8 +21,8 @@ function showTime(date) {
   return `${currentDay}, ${currentHours}:${currentMinutes}`;
 }
 
-function displayForecast() {
-  let forcastElement = document.querySelector("#forecast");
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
 
   let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
 
@@ -41,19 +41,22 @@ function displayForecast() {
   forecastElement.innerHTML = forecastHTML;
 }
 
+function getForecast(coordinates) {
+  let apiKey = "acd17a551bf3501fded89c5b043d5045";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
-  document
-    .querySelector("#iconCurrent")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#iconCurrent")
-    .setAttribute("alt", response.data.weather[0].description);
+  let iconCurrent = document.querySelector("#iconCurrent");
+  iconCurrent.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconCurrent.setAttribute("alt", response.data.weather[0].description);
   metricTemperature = response.data.main.temp;
   document.querySelector("#current-temperature").innerHTML =
     Math.round(metricTemperature);
@@ -67,13 +70,13 @@ function displayWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
+
+  getForecast(response.data.coord);
 }
 
 function searchCity(city) {
-  let apiEndPoint = "https://api.openweathermap.org/data/2.5/weather?";
   let apiKey = "acd17a551bf3501fded89c5b043d5045";
-  let units = "metric";
-  let apiUrl = `${apiEndPoint}q=${city}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
 }
 
