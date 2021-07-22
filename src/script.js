@@ -21,6 +21,26 @@ function showTime(date) {
   return `${currentDay}, ${currentHours}:${currentMinutes}`;
 }
 
+function displayForecast() {
+  let forcastElement = document.querySelector("#forecast");
+
+  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
+
+  let forecastHTML = `<div class="row g-4">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-auto">
+      <div class="day">${day}</div>
+      <i class="fas fa-cloud-rain cloud-rain iconFuture"></i>
+      <div class="temperature">12°C / 9°C</div>
+    </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-description").innerHTML =
@@ -113,3 +133,5 @@ let metricLink = document.querySelector("#metric-link");
 metricLink.addEventListener("click", showMetricTemperature);
 
 searchCity("Sydney");
+
+displayForecast();
