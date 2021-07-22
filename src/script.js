@@ -21,6 +21,36 @@ function showTime(date) {
   return `${currentDay}, ${currentHours}:${currentMinutes}`;
 }
 
+function showMetricTemperature(event) {
+  event.preventDefault();
+  metricLink.classList.remove("nonActive");
+  metricLink.classList.add("active");
+  imperialLink.classList.remove("active");
+  imperialLink.classList.add("nonActive");
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round(metricTemperature);
+  document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
+    metricTemperatureMaximum
+  );
+  document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
+    metricTemperatureMinimum
+  );
+}
+
+function showImperialTemperature(event) {
+  event.preventDefault();
+  metricLink.classList.remove("active");
+  metricLink.classList.add("nonActive");
+  imperialLink.classList.remove("nonActive");
+  imperialLink.classList.add("active");
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round((metricTemperature * 9) / 5) + 32;
+  document.querySelector("#maximum-temperature-today").innerHTML =
+    Math.round((metricTemperatureMaximum * 9) / 5) + 32;
+  document.querySelector("#minimum-temperature-today").innerHTML =
+    Math.round((metricTemperatureMinimum * 9) / 5) + 32;
+}
+
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -85,11 +115,13 @@ function displayWeather(response) {
   metricTemperature = response.data.main.temp;
   document.querySelector("#current-temperature").innerHTML =
     Math.round(metricTemperature);
+  metricTemperatureMaximum = response.data.main.temp_max;
   document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
-    response.data.main.temp_max
+    metricTemperatureMaximum
   );
+  metricTemperatureMinimum = response.data.main.temp_min;
   document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
-    response.data.main.temp_min
+    metricTemperatureMinimum
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
@@ -122,27 +154,9 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
-function showImperialTemperature(event) {
-  event.preventDefault();
-  document.querySelector("#current-temperature").innerHTML =
-    Math.round((metricTemperature * 9) / 5) + 32;
-  metricLink.classList.remove("active");
-  metricLink.classList.add("nonActive");
-  imperialLink.classList.remove("nonActive");
-  imperialLink.classList.add("active");
-}
-
-function showMetricTemperature(event) {
-  event.preventDefault();
-  document.querySelector("#current-temperature").innerHTML =
-    Math.round(metricTemperature);
-  metricLink.classList.remove("nonActive");
-  metricLink.classList.add("active");
-  imperialLink.classList.remove("active");
-  imperialLink.classList.add("nonActive");
-}
-
 let metricTemperature = null;
+let metricTemperatureMaximum = null;
+let metricTemperatureMinimum = null;
 
 let currentDate = document.querySelector("#current-date");
 let currentTime = new Date();
