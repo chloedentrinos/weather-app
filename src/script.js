@@ -37,6 +37,10 @@ function showMetricTemperature(event) {
   );
   document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
   document.querySelector("#windSpeedValue").innerHTML = "km/h";
+  document.querySelector("#maximum-temperature-forecast").innerHTML =
+    Math.round(metricTemperatureMaximumForecast);
+  document.querySelector("#minimum-temperature-forecast").innerHTML =
+    Math.round(metricTemperatureMinimumForecast);
 }
 
 function showImperialTemperature(event) {
@@ -55,6 +59,10 @@ function showImperialTemperature(event) {
     metricWindSpeed / 1.609
   );
   document.querySelector("#windSpeedValue").innerHTML = "mph";
+  document.querySelector("#maximum-temperature-forecast").innerHTML =
+    Math.round((metricTemperatureMaximumForecast * 9) / 5) + 32;
+  document.querySelector("#minimum-temperature-forecast").innerHTML =
+    Math.round((metricTemperatureMinimumForecast * 9) / 5) + 32;
 }
 
 function formatDay(timestamp) {
@@ -79,6 +87,8 @@ function displayForecast(response) {
 
   let forecastHTML = `<div class="row g-4">`;
   forecast.forEach(function (forecastDay, index) {
+    metricTemperatureMaximumForecast = forecastDay.temp.max;
+    metricTemperatureMinimumForecast = forecastDay.temp.min;
     if (index > 0 && index < 6) {
       forecastHTML =
         forecastHTML +
@@ -90,9 +100,11 @@ function displayForecast(response) {
             }@2x.png"
               alt="${forecastDay.weather[0].description}"
               width="70"/>
-          <div class="temperature">${Math.round(
-            forecastDay.temp.max
-          )}°C / ${Math.round(forecastDay.temp.min)}°C</div>
+          <div class="temperature"><span id="maximum-temperature-forecast">${Math.round(
+            metricTemperatureMaximumForecast
+          )}</span>° / <span id="minimum-temperature-forecast">${Math.round(
+          metricTemperatureMinimumForecast
+        )}</span>°</div>
         </div>`;
     }
   });
@@ -162,6 +174,8 @@ let metricTemperature = null;
 let metricTemperatureMaximum = null;
 let metricTemperatureMinimum = null;
 let metricWindSpeed = null;
+let metricTemperatureMaximumForecast = null;
+let metricTemperatureMinimumForecast = null;
 
 let currentDate = document.querySelector("#current-date");
 let currentTime = new Date();
