@@ -35,6 +35,8 @@ function showMetricTemperature(event) {
   document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
     metricTemperatureMinimum
   );
+  document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
+  document.querySelector("#windSpeedValue").innerHTML = "km/h";
 }
 
 function showImperialTemperature(event) {
@@ -49,6 +51,10 @@ function showImperialTemperature(event) {
     Math.round((metricTemperatureMaximum * 9) / 5) + 32;
   document.querySelector("#minimum-temperature-today").innerHTML =
     Math.round((metricTemperatureMinimum * 9) / 5) + 32;
+  document.querySelector("#windSpeed").innerHTML = Math.round(
+    metricWindSpeed / 1.609
+  );
+  document.querySelector("#windSpeedValue").innerHTML = "mph";
 }
 
 function formatDay(timestamp) {
@@ -124,9 +130,8 @@ function displayWeather(response) {
     metricTemperatureMinimum
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed
-  );
+  metricWindSpeed = response.data.wind.speed;
+  document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
 
   getForecast(response.data.coord);
 }
@@ -157,6 +162,7 @@ function getCurrentLocation(event) {
 let metricTemperature = null;
 let metricTemperatureMaximum = null;
 let metricTemperatureMinimum = null;
+let metricWindSpeed = null;
 
 let currentDate = document.querySelector("#current-date");
 let currentTime = new Date();
