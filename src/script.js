@@ -33,10 +33,10 @@ function showImperialTemperature(event) {
     Math.round((metricTemperatureMaximum * 9) / 5) + 32;
   document.querySelector("#minimum-temperature-today").innerHTML =
     Math.round((metricTemperatureMinimum * 9) / 5) + 32;
-  document.querySelector("#windSpeed").innerHTML = Math.round(
+  document.querySelector("#wind-speed").innerHTML = Math.round(
     metricWindSpeed / 1.609
   );
-  document.querySelector("#windSpeedValue").innerHTML = "mph";
+  document.querySelector("#wind-speed-value").innerHTML = "mph";
 
   let maxTempForecast = document.querySelectorAll(
     "#maximum-temperature-forecast"
@@ -77,8 +77,8 @@ function showMetricTemperature(event) {
   document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
     metricTemperatureMinimum
   );
-  document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
-  document.querySelector("#windSpeedValue").innerHTML = "km/h";
+  document.querySelector("#wind-speed").innerHTML = Math.round(metricWindSpeed);
+  document.querySelector("#wind-speed-value").innerHTML = "km/h";
 
   let maxTempForecast = document.querySelectorAll(
     "#maximum-temperature-forecast"
@@ -120,6 +120,7 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
+  console.log(response);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
@@ -157,6 +158,27 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayForecast);
 }
 
+function displayCurrentUv(response) {
+  let uvIndex = document.querySelector("#uv-index");
+  let currentUv = Math.round(response.data.current.uvi);
+  uvIndex.innerHTML = currentUv;
+  if (currentUv < 3) {
+    uvIndex.innerHTML = "low";
+  } else if (currentUv >= 3 === currentUv < 6) {
+    uvIndex.innerHTML = "moderate";
+  } else if (currentUv >= 6 === currentUv < 8) {
+    uvIndex.innerHTML = "high";
+  } else {
+    uvIndex.innerHTML = "very high";
+  }
+}
+
+function getCurrentUv(coordinates) {
+  let apiKey = "acd17a551bf3501fded89c5b043d5045";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayCurrentUv);
+}
+
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#weather-description").innerHTML =
@@ -180,9 +202,22 @@ function displayWeather(response) {
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   metricWindSpeed = response.data.wind.speed;
-  document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
+  document.querySelector("#wind-speed").innerHTML = Math.round(metricWindSpeed);
+
+  getCurrentUv(response.data.coord);
 
   getForecast(response.data.coord);
+}
+
+function searchLocation(position) {
+  let apiKey = "acd17a551bf3501fded89c5b043d5045";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeather);
+}
+
+function getCurrentLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
 function searchCity(city) {
@@ -197,24 +232,12 @@ function handleSubmit(event) {
   searchCity(city);
 }
 
-function searchLocation(position) {
-  let apiKey = "acd17a551bf3501fded89c5b043d5045";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayWeather);
-}
-
-function getCurrentLocation(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(searchLocation);
-}
-
 let metricTemperature = null;
 let metricTemperatureMaximum = null;
 let metricTemperatureMinimum = null;
 let metricWindSpeed = null;
 let metricTemperatureMaximumForecast = [];
 let metricTemperatureMinimumForecast = [];
-let temperatures = [];
 
 let currentDate = document.querySelector("#current-date");
 let currentTime = new Date();
