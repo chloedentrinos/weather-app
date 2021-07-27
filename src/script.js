@@ -21,28 +21,6 @@ function showTime(date) {
   return `${currentDay}, ${currentHours}:${currentMinutes}`;
 }
 
-function showMetricTemperature(event) {
-  event.preventDefault();
-  metricLink.classList.remove("nonActive");
-  metricLink.classList.add("active");
-  imperialLink.classList.remove("active");
-  imperialLink.classList.add("nonActive");
-  document.querySelector("#current-temperature").innerHTML =
-    Math.round(metricTemperature);
-  document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
-    metricTemperatureMaximum
-  );
-  document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
-    metricTemperatureMinimum
-  );
-  document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
-  document.querySelector("#windSpeedValue").innerHTML = "km/h";
-  document.querySelector("#maximum-temperature-forecast").innerHTML =
-    Math.round(metricTemperatureMaximumForecast);
-  document.querySelector("#minimum-temperature-forecast").innerHTML =
-    Math.round(metricTemperatureMinimumForecast);
-}
-
 function showImperialTemperature(event) {
   event.preventDefault();
   metricLink.classList.remove("active");
@@ -63,6 +41,28 @@ function showImperialTemperature(event) {
     Math.round((metricTemperatureMaximumForecast * 9) / 5) + 32;
   document.querySelector("#minimum-temperature-forecast").innerHTML =
     Math.round((metricTemperatureMinimumForecast * 9) / 5) + 32;
+}
+
+function showMetricTemperature(event) {
+  event.preventDefault();
+  metricLink.classList.remove("nonActive");
+  metricLink.classList.add("active");
+  imperialLink.classList.remove("active");
+  imperialLink.classList.add("nonActive");
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round(metricTemperature);
+  document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
+    metricTemperatureMaximum
+  );
+  document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
+    metricTemperatureMinimum
+  );
+  document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
+  document.querySelector("#windSpeedValue").innerHTML = "km/h";
+  document.querySelector("#maximum-temperature-forecast").innerHTML =
+    Math.round(metricTemperatureMaximumForecast);
+  document.querySelector("#minimum-temperature-forecast").innerHTML =
+    Math.round(metricTemperatureMinimumForecast);
 }
 
 function formatDay(timestamp) {
