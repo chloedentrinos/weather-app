@@ -1,4 +1,5 @@
-function showTime(date) {
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
   let days = [
     "Sunday",
     "Monday",
@@ -9,16 +10,40 @@ function showTime(date) {
     "Saturday",
   ];
   let currentDay = days[date.getDay()];
-  let currentHours = date.getHours();
-  if (currentHours < 10) {
-    currentHours = `0${currentHours}`;
-  }
-  let currentMinutes = date.getMinutes();
-  if (currentMinutes < 10) {
-    currentMinutes = `0${currentMinutes}`;
-  }
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let currentMonth = months[date.getMonth()];
+  let currentDate = date.getDate();
+  let currentYear = date.getFullYear();
 
-  return `${currentDay}, ${currentHours}:${currentMinutes}`;
+  return `${currentDay} ${currentMonth} ${currentDate}, ${currentYear}`;
+}
+
+function formatTime(timestamp) {
+  let date = new Date(timestamp);
+  let currentHours = date.getHours();
+  let currentMinutes = date.getMinutes();
+  if (currentHours <= 12 && currentMinutes < 10) {
+    return `${currentHours}:0${currentMinutes} AM`;
+  } else if (currentHours <= 12 && currentMinutes >= 10) {
+    return `${currentHours}:${currentMinutes} PM`;
+  } else if (currentHours > 12 && currentMinutes < 10) {
+    return `${currentHours - 12}:0${currentMinutes} AM`;
+  } else if (currentHours > 12 && currentMinutes >= 10) {
+    return `${currentHours - 12}:${currentMinutes} PM`;
+  }
 }
 
 function showImperialTemperature(event) {
@@ -120,11 +145,10 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
-  let forecastHTML = `<div class="row g-4">`;
+  let forecastHTML = `<div class="row justify-content-evenly">`;
   forecast.forEach(function (forecastDay, index) {
     if (index > 0 && index < 6) {
       forecastHTML =
@@ -179,8 +203,26 @@ function getCurrentUv(coordinates) {
   axios.get(apiUrl).then(displayCurrentUv);
 }
 
+function displayCurrentShowers(response) {
+  document.querySelector("#showers").innerHTML = Math.round(
+    response.data.daily[0].pop
+  );
+}
+
+function getCurrentShowers(coordinates) {
+  let apiKey = "acd17a551bf3501fded89c5b043d5045";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayCurrentShowers);
+}
+
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#current-date").innerHTML = formatDate(
+    response.data.dt * 1000
+  );
+  document.querySelector("#current-time").innerHTML = formatTime(
+    response.data.dt * 1000
+  );
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
   let iconCurrent = document.querySelector("#iconCurrent");
@@ -203,6 +245,8 @@ function displayWeather(response) {
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   metricWindSpeed = response.data.wind.speed;
   document.querySelector("#wind-speed").innerHTML = Math.round(metricWindSpeed);
+
+  getCurrentShowers(response.data.coord);
 
   getCurrentUv(response.data.coord);
 
@@ -238,10 +282,6 @@ let metricTemperatureMinimum = null;
 let metricWindSpeed = null;
 let metricTemperatureMaximumForecast = [];
 let metricTemperatureMinimumForecast = [];
-
-let currentDate = document.querySelector("#current-date");
-let currentTime = new Date();
-currentDate.innerHTML = showTime(currentTime);
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);

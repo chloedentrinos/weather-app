@@ -85,8 +85,6 @@ h3 {
 .currentWeatherExtras {
   padding-left: 24px;
   padding-right: 0px;
-  position: relative;
-  top: 9px;
 }
 
 .day,
@@ -100,6 +98,12 @@ h3 {
 
 .cloud-rain {
   color: rgb(172, 172, 172);
+}
+
+.forecast {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
 }
 
 .openSourceCode {
