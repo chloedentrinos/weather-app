@@ -79,6 +79,7 @@ function showMetricTemperature(event) {
   );
   document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
   document.querySelector("#windSpeedValue").innerHTML = "km/h";
+
   let maxTempForecast = document.querySelectorAll(
     "#maximum-temperature-forecast"
   );
