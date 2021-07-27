@@ -37,10 +37,30 @@ function showImperialTemperature(event) {
     metricWindSpeed / 1.609
   );
   document.querySelector("#windSpeedValue").innerHTML = "mph";
-  document.querySelector("#maximum-temperature-forecast").innerHTML =
-    Math.round((metricTemperatureMaximumForecast * 9) / 5) + 32;
-  document.querySelector("#minimum-temperature-forecast").innerHTML =
-    Math.round((metricTemperatureMinimumForecast * 9) / 5) + 32;
+
+  let maxTempForecast = document.querySelectorAll(
+    "#maximum-temperature-forecast"
+  );
+  let maxTempArray = Array.from(maxTempForecast);
+
+  maxTempArray.forEach(function (temp, index) {
+    temp = maxTempArray[index].innerText;
+    let convertedMaxTemp =
+      (metricTemperatureMaximumForecast[index] * 9) / 5 + 32;
+    maxTempForecast[index].innerHTML = `${Math.round(convertedMaxTemp)}`;
+  });
+
+  let minTempForecast = document.querySelectorAll(
+    "#minimum-temperature-forecast"
+  );
+  let minTempArray = Array.from(minTempForecast);
+
+  minTempArray.forEach(function (temp, index) {
+    temp = minTempArray[index].innerText;
+    let convertedMinTemp =
+      (metricTemperatureMinimumForecast[index] * 9) / 5 + 32;
+    minTempForecast[index].innerHTML = `${Math.round(convertedMinTemp)}`;
+  });
 }
 
 function showMetricTemperature(event) {
@@ -59,10 +79,27 @@ function showMetricTemperature(event) {
   );
   document.querySelector("#windSpeed").innerHTML = Math.round(metricWindSpeed);
   document.querySelector("#windSpeedValue").innerHTML = "km/h";
-  document.querySelector("#maximum-temperature-forecast").innerHTML =
-    Math.round(metricTemperatureMaximumForecast);
-  document.querySelector("#minimum-temperature-forecast").innerHTML =
-    Math.round(metricTemperatureMinimumForecast);
+  let maxTempForecast = document.querySelectorAll(
+    "#maximum-temperature-forecast"
+  );
+  let maxTempArray = Array.from(maxTempForecast);
+
+  maxTempArray.forEach(function (temp, index) {
+    temp = maxTempArray[index].innerText;
+    let convertedMaxTemp = metricTemperatureMaximumForecast[index];
+    maxTempForecast[index].innerHTML = `${Math.round(convertedMaxTemp)}`;
+  });
+
+  let minTempForecast = document.querySelectorAll(
+    "#minimum-temperature-forecast"
+  );
+  let minTempArray = Array.from(minTempForecast);
+
+  minTempArray.forEach(function (temp, index) {
+    temp = minTempArray[index].innerText;
+    let convertedMinTemp = metricTemperatureMinimumForecast[index];
+    minTempForecast[index].innerHTML = `${Math.round(convertedMinTemp)}`;
+  });
 }
 
 function formatDay(timestamp) {
@@ -87,8 +124,6 @@ function displayForecast(response) {
 
   let forecastHTML = `<div class="row g-4">`;
   forecast.forEach(function (forecastDay, index) {
-    metricTemperatureMaximumForecast = forecastDay.temp.max;
-    metricTemperatureMinimumForecast = forecastDay.temp.min;
     if (index > 0 && index < 6) {
       forecastHTML =
         forecastHTML +
@@ -101,11 +136,13 @@ function displayForecast(response) {
               alt="${forecastDay.weather[0].description}"
               width="70"/>
           <div class="temperature"><span id="maximum-temperature-forecast">${Math.round(
-            metricTemperatureMaximumForecast
+            forecastDay.temp.max
           )}</span>° / <span id="minimum-temperature-forecast">${Math.round(
-          metricTemperatureMinimumForecast
+          forecastDay.temp.min
         )}</span>°</div>
         </div>`;
+      metricTemperatureMaximumForecast.push(forecastDay.temp.max);
+      metricTemperatureMinimumForecast.push(forecastDay.temp.min);
     }
   });
 
@@ -174,8 +211,9 @@ let metricTemperature = null;
 let metricTemperatureMaximum = null;
 let metricTemperatureMinimum = null;
 let metricWindSpeed = null;
-let metricTemperatureMaximumForecast = null;
-let metricTemperatureMinimumForecast = null;
+let metricTemperatureMaximumForecast = [];
+let metricTemperatureMinimumForecast = [];
+let temperatures = [];
 
 let currentDate = document.querySelector("#current-date");
 let currentTime = new Date();
