@@ -1,5 +1,5 @@
 function formatDate(timestamp) {
-  let date = new Date(timestamp);
+  let date = timestamp;
   let days = [
     "Sunday",
     "Monday",
@@ -32,15 +32,15 @@ function formatDate(timestamp) {
 }
 
 function formatTime(timestamp) {
-  let date = new Date(timestamp);
+  let date = timestamp;
   let currentHours = date.getHours();
   let currentMinutes = date.getMinutes();
   if (currentHours <= 12 && currentMinutes < 10) {
     return `${currentHours}:0${currentMinutes} AM`;
   } else if (currentHours <= 12 && currentMinutes >= 10) {
-    return `${currentHours}:${currentMinutes} PM`;
+    return `${currentHours}:${currentMinutes} AM`;
   } else if (currentHours > 12 && currentMinutes < 10) {
-    return `${currentHours - 12}:0${currentMinutes} AM`;
+    return `${currentHours - 12}:0${currentMinutes} PM`;
   } else if (currentHours > 12 && currentMinutes >= 10) {
     return `${currentHours - 12}:${currentMinutes} PM`;
   }
@@ -217,12 +217,8 @@ function getCurrentShowers(coordinates) {
 
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#current-date").innerHTML = formatDate(
-    response.data.dt * 1000
-  );
-  document.querySelector("#current-time").innerHTML = formatTime(
-    response.data.dt * 1000
-  );
+  document.querySelector("#current-date").innerHTML = formatDate(new Date());
+  document.querySelector("#current-time").innerHTML = formatTime(new Date());
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
   let iconCurrent = document.querySelector("#iconCurrent");

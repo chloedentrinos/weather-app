@@ -52,16 +52,23 @@
             </div>
           </form>
           <h1 id="city"></h1>
-          <h4 id="current-date">Tuesday July 27, 2021</h4>
-          <h4 class="lastUpdated">
-            Last updated: <span id="current-time"></span>
-          </h4>
-          <h4 id="current-date"></h4>
+          <div class="row g-2 currentTimeAndDate">
+            <div class="col-6">
+              <h4 class="lastUpdated">
+                Last updated: <span id="current-time"></span>
+              </h4>
+            </div>
+            <div class="col-6 currentDate">
+              <h4 id="current-date"></h4>
+            </div>
+          </div>
           <h3 class="weatherDescription" id="weather-description"></h3>
-          <h3>Chance of showers: <stan id="showers"></stan>%</h3>
-          <div class="row g-2 currentWeather">
+          <h3 class="showers">
+            Chance of showers: <stan id="showers"></stan>%
+          </h3>
+          <div class="row g-2 justify-content-evenly currentWeather">
             <div class="col-4 iconCurrent">
-              <img src="" alt="" id="iconCurrent" />
+              <img src="" alt="" id="iconCurrent" width="140" />
             </div>
             <div class="col-auto currentTemperatureAll">
               <h2 id="current-temperature"></h2>
