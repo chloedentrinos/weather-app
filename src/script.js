@@ -1,49 +1,41 @@
-function formatDate(timestamp) {
-  let date = timestamp;
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let currentDay = days[date.getDay()];
-  let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  let currentMonth = months[date.getMonth()];
-  let currentDate = date.getDate();
-  let currentYear = date.getFullYear();
+function showMetricTemperature(event) {
+  event.preventDefault();
+  metricLink.classList.remove("nonActive");
+  metricLink.classList.add("active");
+  imperialLink.classList.remove("active");
+  imperialLink.classList.add("nonActive");
+  document.querySelector("#current-temperature").innerHTML =
+    Math.round(metricTemperature);
+  document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
+    metricTemperatureMaximum
+  );
+  document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
+    metricTemperatureMinimum
+  );
+  document.querySelector("#wind-speed").innerHTML = Math.round(metricWindSpeed);
+  document.querySelector("#wind-speed-value").innerHTML = "km/h";
 
-  return `${currentDay} ${currentMonth} ${currentDate}, ${currentYear}`;
-}
+  let maxTempForecast = document.querySelectorAll(
+    "#maximum-temperature-forecast"
+  );
+  let maxTempArray = Array.from(maxTempForecast);
 
-function formatTime(timestamp) {
-  let date = timestamp;
-  let currentHours = date.getHours();
-  let currentMinutes = date.getMinutes();
-  if (currentHours <= 12 && currentMinutes < 10) {
-    return `${currentHours}:0${currentMinutes} AM`;
-  } else if (currentHours <= 12 && currentMinutes >= 10) {
-    return `${currentHours}:${currentMinutes} AM`;
-  } else if (currentHours > 12 && currentMinutes < 10) {
-    return `${currentHours - 12}:0${currentMinutes} PM`;
-  } else if (currentHours > 12 && currentMinutes >= 10) {
-    return `${currentHours - 12}:${currentMinutes} PM`;
-  }
+  maxTempArray.forEach(function (temp, index) {
+    temp = maxTempArray[index].innerText;
+    let convertedMaxTemp = metricTemperatureMaximumForecast[index];
+    maxTempForecast[index].innerHTML = `${Math.round(convertedMaxTemp)}`;
+  });
+
+  let minTempForecast = document.querySelectorAll(
+    "#minimum-temperature-forecast"
+  );
+  let minTempArray = Array.from(minTempForecast);
+
+  minTempArray.forEach(function (temp, index) {
+    temp = minTempArray[index].innerText;
+    let convertedMinTemp = metricTemperatureMinimumForecast[index];
+    minTempForecast[index].innerHTML = `${Math.round(convertedMinTemp)}`;
+  });
 }
 
 function showImperialTemperature(event) {
@@ -84,46 +76,6 @@ function showImperialTemperature(event) {
     temp = minTempArray[index].innerText;
     let convertedMinTemp =
       (metricTemperatureMinimumForecast[index] * 9) / 5 + 32;
-    minTempForecast[index].innerHTML = `${Math.round(convertedMinTemp)}`;
-  });
-}
-
-function showMetricTemperature(event) {
-  event.preventDefault();
-  metricLink.classList.remove("nonActive");
-  metricLink.classList.add("active");
-  imperialLink.classList.remove("active");
-  imperialLink.classList.add("nonActive");
-  document.querySelector("#current-temperature").innerHTML =
-    Math.round(metricTemperature);
-  document.querySelector("#maximum-temperature-today").innerHTML = Math.round(
-    metricTemperatureMaximum
-  );
-  document.querySelector("#minimum-temperature-today").innerHTML = Math.round(
-    metricTemperatureMinimum
-  );
-  document.querySelector("#wind-speed").innerHTML = Math.round(metricWindSpeed);
-  document.querySelector("#wind-speed-value").innerHTML = "km/h";
-
-  let maxTempForecast = document.querySelectorAll(
-    "#maximum-temperature-forecast"
-  );
-  let maxTempArray = Array.from(maxTempForecast);
-
-  maxTempArray.forEach(function (temp, index) {
-    temp = maxTempArray[index].innerText;
-    let convertedMaxTemp = metricTemperatureMaximumForecast[index];
-    maxTempForecast[index].innerHTML = `${Math.round(convertedMaxTemp)}`;
-  });
-
-  let minTempForecast = document.querySelectorAll(
-    "#minimum-temperature-forecast"
-  );
-  let minTempArray = Array.from(minTempForecast);
-
-  minTempArray.forEach(function (temp, index) {
-    temp = minTempArray[index].innerText;
-    let convertedMinTemp = metricTemperatureMinimumForecast[index];
     minTempForecast[index].innerHTML = `${Math.round(convertedMinTemp)}`;
   });
 }
@@ -204,9 +156,8 @@ function getCurrentUv(coordinates) {
 }
 
 function displayCurrentShowers(response) {
-  document.querySelector("#showers").innerHTML = Math.round(
-    response.data.daily[0].pop
-  );
+  document.querySelector("#showers").innerHTML =
+    response.data.daily[0].pop * 100;
 }
 
 function getCurrentShowers(coordinates) {
@@ -215,10 +166,58 @@ function getCurrentShowers(coordinates) {
   axios.get(apiUrl).then(displayCurrentShowers);
 }
 
+function formatDate(timestamp) {
+  let date = timestamp;
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let currentDay = days[date.getDay()];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let currentMonth = months[date.getMonth()];
+  let currentDate = date.getDate();
+  let currentYear = date.getFullYear();
+
+  return `${currentDay} ${currentMonth} ${currentDate}, ${currentYear}`;
+}
+
+function formatTime(timestamp) {
+  let date = timestamp;
+  let currentHours = date.getHours();
+  let currentMinutes = date.getMinutes();
+  if (currentHours <= 12 && currentMinutes < 10) {
+    return `${currentHours}:0${currentMinutes} AM`;
+  } else if (currentHours <= 12 && currentMinutes >= 10) {
+    return `${currentHours}:${currentMinutes} AM`;
+  } else if (currentHours > 12 && currentMinutes < 10) {
+    return `${currentHours - 12}:0${currentMinutes} PM`;
+  } else if (currentHours > 12 && currentMinutes >= 10) {
+    return `${currentHours - 12}:${currentMinutes} PM`;
+  }
+}
+
 function displayWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#current-date").innerHTML = formatDate(new Date());
   document.querySelector("#current-time").innerHTML = formatTime(new Date());
+  document.querySelector("#current-date").innerHTML = formatDate(new Date());
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
   let iconCurrent = document.querySelector("#iconCurrent");
