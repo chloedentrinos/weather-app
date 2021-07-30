@@ -187,13 +187,13 @@ function displayCurrentUv(response) {
   let currentUv = Math.round(response.data.current.uvi);
   uvIndex.innerHTML = currentUv;
   if (currentUv < 3) {
-    uvIndex.innerHTML = "low";
+    uvIndex.innerHTML = "Low";
   } else if (currentUv >= 3 === currentUv < 6) {
-    uvIndex.innerHTML = "moderate";
+    uvIndex.innerHTML = "Moderate";
   } else if (currentUv >= 6 === currentUv < 8) {
-    uvIndex.innerHTML = "high";
+    uvIndex.innerHTML = "High";
   } else {
-    uvIndex.innerHTML = "very high";
+    uvIndex.innerHTML = "Very high";
   }
 }
 

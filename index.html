@@ -51,47 +51,50 @@
               />
             </div>
           </form>
-          <h1 id="city"></h1>
-          <div class="row g-2 currentTimeAndDate">
+          <h1 class="headings" id="city"></h1>
+          <div class="row g-2 currentTimeAndDate headings">
             <div class="col-6">
-              <h4 class="lastUpdated">
+              <div class="lastUpdated">
                 Last updated: <span id="current-time"></span>
-              </h4>
+              </div>
             </div>
-            <div class="col-6 currentDate">
-              <h4 id="current-date"></h4>
-            </div>
+            <div class="col-6 currentDate" id="current-date"></div>
           </div>
-          <h3 class="weatherDescription" id="weather-description"></h3>
-          <h3 class="showers">
-            Chance of showers: <stan id="showers"></stan>%
-          </h3>
+          <div
+            class="weatherDescription headings"
+            id="weather-description"
+          ></div>
+          <div class="showers headings">
+            Chance of showers: <span id="showers"></span>%
+          </div>
           <div class="row g-2 justify-content-evenly currentWeather">
             <div class="col-4 iconCurrent">
               <img src="" alt="" id="iconCurrent" width="140" />
             </div>
             <div class="col-auto currentTemperatureAll">
-              <h2 id="current-temperature"></h2>
-              <stan class="currentTemperatureUnits">
+              <div
+                class="currentTemperature headings"
+                id="current-temperature"
+              ></div>
+              <span class="currentTemperatureUnits">
                 <a href="#" class="active" id="metric-link">°C </a>
-                <stan class="separator"> | </stan>
+                <span class="separator"> | </span>
                 <a href="#" class="nonActive" id="imperial-link">°F</a>
-              </stan>
-              <div class="temperature">
-                <stan id="maximum-temperature-today"></stan>° /
-                <stan id="minimum-temperature-today"></stan>°
+              </span>
+              <div class="temperatureMaxAndMinToday">
+                <span id="maximum-temperature-today"></span>° /
+                <span id="minimum-temperature-today"></span>°
               </div>
             </div>
             <div class="col-4 currentWeatherExtras">
-              <p>Humidity: <stan id="humidity"></stan>%</p>
+              <p>Humidity: <span id="humidity"></span>%</p>
               <p>
-                Wind: <stan id="wind-speed"></stan>
-                <stan id="wind-speed-value">km/h</stan>
+                Wind: <span id="wind-speed"></span>
+                <span id="wind-speed-value">km/h</stan>
               </p>
-              <p>UV index: <stan id="uv-index"></stan></p>
+              <p>UV index: <span id="uv-index"></span></p>
             </div>
           </div>
-          <br />
           <div class="forecast" id="forecast"></div>
         </div>
       </div>
