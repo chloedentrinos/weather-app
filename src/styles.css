@@ -51,14 +51,14 @@ h1 {
 }
 
 .currentWeather {
-  margin-top: 0px;
-  height: 145px;
+  margin-top: 29px;
 }
 
 .iconCurrent {
   text-align: right;
   position: relative;
-  bottom: 23px;
+  bottom: 34px;
+  left: 15px;
 }
 
 .currentTemperatureAll {
@@ -105,11 +105,6 @@ h1 {
   bottom: 16px;
   left: 5px;
   font-size: 18px;
-}
-
-.currentWeatherExtras {
-  padding-left: 24px;
-  padding-right: 0px;
 }
 
 .day,
